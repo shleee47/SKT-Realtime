@@ -1,0 +1,118 @@
+use_tb_logger: true
+
+#### datasets
+datasets:
+  #path: ./dataset/
+  #csv: ./csv/
+  #test: /home/sanghoon/emotions/dataset/
+  #csv: /home/nas3/DB/Multimodal_drama_Inference/
+  #path: /home/nas3/DB/Multimodal_drama_Inference/
+  #path: /home/nas3/DB/grandma/
+  #csv: /home/nas3/DB/grandma/
+  #path: /home/nas3/DB/[DB]_AIHUB_Multimodal5/
+  #csv: /home/nas3/user/lsh/SKT_AI_Felloship/AIHUB_Multimodal5_preprocessed/
+  path: /home/nas3/user/koo/skt/demo_pre/
+  csv: /home/nas3/user/koo/skt/demo_pre/
+  #path: /home/nas3/DB/Multimodal_IIP_Inference/
+  #csv: /home/nas3/DB/Multimodal_IIP_Inference/
+  #fitting_path: /home/nas3/DB/Multimodal_IIP_Inference/
+  #fitting_csv: /home/nas3/DB/Multimodal_IIP_Inference/
+
+dataloader:
+  train:
+    batch_size: 64
+    shuffle: true
+    # pin_memeory: true
+    num_workers: 20
+    #num_workers: 0
+
+  valid:
+    batch_size: 64
+    shuffle: false
+    # pin_memeory: true
+    num_workers: 20
+    #num_workers: 0
+
+  test:
+    batch_size: 1
+    shuffle: false
+    # pin_memeory: true
+    num_workers: 20
+
+#### network structures
+network:
+  class_list: ['negative','neutral','positive']
+  #class_list: ['sad','angry','neutral','happy']
+  bidirectional: false
+
+#### training settings: learning rate scheme, loss
+trainer:
+  epochs: 1000
+  device: 0
+  save_path: ./model/
+  #ckpt_path: ./model/23July_0708/ckpt/17_94.1479.pt
+  comment: 4 class, edge labeling
+
+tester:
+  #ckpt_path: /home/nas/user/sanghoon/code/emotions/model/05August_0311/ckpt/20_95.1779.pt
+  #ckpt_path: /home/nas/user/sanghoon/code/emotions/model/23July_0708/ckpt/17_94.1479.pt
+  #ckpt_path: ./model/08August_0108/ckpt/21_95.8333.pt
+  ckpt_path: ./model/10August_0226/ckpt/5_96.7399.pt
+  device: 0
+
+
+criterion:
+  #name: regression
+  #name: BCEWithLogits
+  #name: BCE
+  name: CrossEntropy
+
+#### Optimizer settings
+optimizer:
+  name: Adam   ## Adam, RMSprop, SGD
+  lr: !!float 0.001
+  #lr: !!float 0.001
+  # betas: (0.9, 0.999)
+  eps: !!float 1e-5
+  weight_decay: !!float 1e-3
+
+
+#### scheduler settings
+scheduler:
+  name: plateau
+  min_lr: !!float 1e-8
+  patience: 2
+  factor: 0.5
+
+#### transformer settings
+transformer:
+  n_layers: 2
+  n_heads: 8
+  n_classes: 3
+  #n_classes: 4
+  only_audio: False
+  only_text: False
+  d_audio_orig: 40
+  d_text_orig: 768  
+  #d_model: 64
+  d_model: 40
+  attn_dropout: .2
+  relu_dropout: .1
+  emb_dropout: .2
+  res_dropout: .1
+  out_dropout: .1
+  attn_mask: True
+
+#### bert settings
+bert:
+  vocab_path: ./KoBERT/vocab.list
+  args_path: ./KoBERT/args.bin
+
+#### demo settings
+demo:
+  #ckpt_path: ./model/17_96.3031.pt
+  #ckpt_path: ./model/12_94.8034.pt
+  #ckpt_path: ./model/17_94.1479.pt
+  #ckpt_path: ./model/11_95.1311.pt
+  ckpt_path: ./model/multi.pt
+  device: 0
