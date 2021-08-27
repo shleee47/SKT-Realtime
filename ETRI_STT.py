@@ -11,7 +11,7 @@ class STT_model:
         super().__init__()
         self.openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
         '''Fill out your ETRI access key here'''
-        #self.accessKey = ""
+        self.accessKey = ""
         self.languageCode = "korean"
 
     def inference(self, counter, audio):
