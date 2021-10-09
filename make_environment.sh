@@ -1,5 +1,5 @@
-conda create -y -n sk python=3.8
-conda activate sk
+conda create -y -n sktt python=3.8
+conda activate sktt
 #source activate sktt
 conda install scipy
 
