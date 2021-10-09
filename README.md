@@ -4,7 +4,7 @@
 ### 1. Install the conda environment
 ```
 cd SKT-Realtime/
-conda install --file pyvad_list.txt
+sh make_environment.sh
 ```    
 ### 2. Set the microphone index.
 - If you run the code, you can check the microphone index. 
